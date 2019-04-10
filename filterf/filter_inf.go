@@ -1,7 +1,10 @@
 package filterf
 
 import (
+	"github.com/shangzebei/gateway-api/backend"
+	"github.com/shangzebei/gateway-api/http"
 	"github.com/shangzebei/gateway-api/httpstatus"
+	"github.com/shangzebei/gateway-api/pluginf"
 	"net/url"
 )
 
@@ -40,7 +43,14 @@ type Context interface {
 
 type Filter interface {
 	Pre(ctx RequestContext) (httpstatus.HTTPSTATUS, bool)
-	Route(ctx Context) (httpstatus.HTTPSTATUS, bool)
+	//now only chang remote url
+	Route(orig string, to *string) (httpstatus.HTTPSTATUS, bool)
 	Post(ctx ResponseContext) (httpstatus.HTTPSTATUS, bool)
 	Err(err error, ctx ResponseContext) bool
+}
+
+type FilterEntry struct {
+	Info    *pluginf.PlugInfo
+	Http    http.ApiEndPoint
+	Backend backend.Backend
 }
