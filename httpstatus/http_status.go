@@ -68,3 +68,21 @@ const (
 	StatusNotExtended                   = 510 // RFC 2774, 7
 	StatusNetworkAuthenticationRequired = 511 // RFC 6585, 6
 )
+
+func NewHttpError(status HTTPSTATUS) *HttpError {
+	return &HttpError{status: status}
+}
+
+type HttpError struct {
+	status HTTPSTATUS
+}
+
+func (h *HttpError) SetHttpStatus(s HTTPSTATUS) {
+	h.status = s
+}
+func (h *HttpError) GetHttpStatus() HTTPSTATUS {
+	return h.status
+}
+func (h *HttpError) Error() string {
+	return "HttpError"
+}

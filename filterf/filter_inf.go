@@ -42,9 +42,10 @@ type Context interface {
 }
 
 type Filter interface {
+	Order() int
 	Pre(ctx RequestContext) (httpstatus.HTTPSTATUS, bool)
 	//now only chang remote url
-	Route(orig string, to *string) (httpstatus.HTTPSTATUS, bool)
+	Route(orig string, to *string, tag string) (httpstatus.HTTPSTATUS, bool)
 	Post(ctx ResponseContext) (httpstatus.HTTPSTATUS, bool)
 	Err(err error, ctx ResponseContext) bool
 }

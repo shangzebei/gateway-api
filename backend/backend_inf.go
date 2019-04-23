@@ -11,9 +11,17 @@ type DB interface {
 	Del(key string) error
 }
 
+type RegisterEntry struct {
+	Name    string
+	Servers []string
+	Tag     []string
+}
+
 type Register interface {
-	RegisterSelf(regAddr string, serAddr string)
+	RegisterSelf(name string, serAddr string, endPoint string)
 	GetRegisterGateway() []string
-	GetRegisters(name string) []string
-	RegisterWatch()
+	GetRegisters(name string) *RegisterEntry
+	GetAllService() []string
+	//0 db //1 services
+	RegisterWatch(ty int, change chan string)
 }
