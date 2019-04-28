@@ -50,6 +50,26 @@ type Filter interface {
 	Err(err error, ctx ResponseContext) bool
 }
 
+type Pre interface {
+	Order() int
+	Pre(ctx RequestContext) (httpstatus.HTTPSTATUS, bool)
+}
+
+type Route interface {
+	Order() int
+	Route(orig string, to *string, tag string) (httpstatus.HTTPSTATUS, bool)
+}
+
+type Post interface {
+	Order() int
+	Post(ctx ResponseContext) (httpstatus.HTTPSTATUS, bool)
+}
+
+type Error interface {
+	Order() int
+	Err(err error, ctx ResponseContext) bool
+}
+
 type FilterEntry struct {
 	Info    *pluginf.PlugInfo
 	Http    http.ApiEndPoint
