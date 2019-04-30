@@ -20,8 +20,8 @@ type RequestContext interface {
 	ReWriteUrl(match string, to string) error
 	GetContentType() string
 	GetHost() string
-	SetTag(tag string)
-	GetTag() string
+	SetTag(tag interface{})
+	GetTag() interface{}
 }
 
 type ResponseContext interface {
@@ -30,8 +30,8 @@ type ResponseContext interface {
 	SetHeader(k string, v string)
 	SetContentType(t string)
 	DelHeader(k string)
-	GetTag() string
-	SetTag(tag string)
+	GetTag() interface{}
+	SetTag(tag interface{})
 	SetStatusCode(code int)
 }
 
@@ -45,7 +45,7 @@ type Filter interface {
 	Order() int
 	Pre(ctx RequestContext) (httpstatus.HTTPSTATUS, bool)
 	//now only chang remote url
-	Route(orig string, to *string, tag string) (httpstatus.HTTPSTATUS, bool)
+	Route(orig string, to *string, tag interface{}) (httpstatus.HTTPSTATUS, bool)
 	Post(ctx ResponseContext) (httpstatus.HTTPSTATUS, bool)
 	Err(err error, ctx ResponseContext) bool
 }
@@ -57,7 +57,7 @@ type Pre interface {
 
 type Route interface {
 	Order() int
-	Route(orig string, to *string, tag string) (httpstatus.HTTPSTATUS, bool)
+	Route(orig string, to *string, tag interface{}) (httpstatus.HTTPSTATUS, bool)
 }
 
 type Post interface {
