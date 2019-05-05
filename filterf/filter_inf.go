@@ -22,6 +22,18 @@ type RequestContext interface {
 	GetHost() string
 	SetTag(tag interface{})
 	GetTag() interface{}
+	SetValue(filter Filter, v interface{})
+	GetValue(filter Filter) interface{}
+}
+
+type RouteContext interface {
+	GetOrig() string
+	SetTo(string)
+	GetTo() string
+	SetTag(tag interface{})
+	GetTag() interface{}
+	SetValue(filter Filter, v interface{})
+	GetValue(filter Filter) interface{}
 }
 
 type ResponseContext interface {
@@ -33,6 +45,8 @@ type ResponseContext interface {
 	GetTag() interface{}
 	SetTag(tag interface{})
 	SetStatusCode(code int)
+	SetValue(filter Filter, v interface{})
+	GetValue(filter Filter) interface{}
 }
 
 type Context interface {
@@ -45,7 +59,7 @@ type Filter interface {
 	Order() int
 	Pre(ctx RequestContext) (httpstatus.HTTPSTATUS, bool)
 	//now only chang remote url
-	Route(orig string, to *string, tag interface{}) (httpstatus.HTTPSTATUS, bool)
+	Route(ctx RouteContext) (httpstatus.HTTPSTATUS, bool)
 	Post(ctx ResponseContext) (httpstatus.HTTPSTATUS, bool)
 	Err(err error, ctx ResponseContext) bool
 }
@@ -57,7 +71,7 @@ type Pre interface {
 
 type Route interface {
 	Order() int
-	Route(orig string, to *string, tag interface{}) (httpstatus.HTTPSTATUS, bool)
+	Route(ctx RouteContext) (httpstatus.HTTPSTATUS, bool)
 }
 
 type Post interface {
