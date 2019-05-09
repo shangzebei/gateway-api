@@ -11,6 +11,7 @@ import (
 type RequestContext interface {
 	GetPath() string
 	SetPath(path string)
+	Close()
 	GetHeader(key string) string
 	SetHeader(key string, value string)
 	DelHeader(key string)
