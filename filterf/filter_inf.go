@@ -46,6 +46,7 @@ type ResponseContext interface {
 	GetTag() interface{}
 	SetTag(tag interface{})
 	SetStatusCode(code int)
+	GetStatusCode() int
 	SetValue(filter Filter, v interface{})
 	GetValue(filter Filter) interface{}
 }
