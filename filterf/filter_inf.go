@@ -42,9 +42,11 @@ type ResponseContext interface {
 	GetBody() []byte
 	SetHeader(k string, v string)
 	SetContentType(t string)
+	GetHeader(key string) string
 	DelHeader(k string)
 	GetTag() interface{}
 	SetTag(tag interface{})
+	SetGzipBody(body []byte)
 	SetStatusCode(code int)
 	GetStatusCode() int
 	SetValue(filter Filter, v interface{})
