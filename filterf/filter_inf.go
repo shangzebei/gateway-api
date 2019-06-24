@@ -25,6 +25,7 @@ type RequestContext interface {
 	GetTag() interface{}
 	SetValue(filter Filter, v interface{})
 	GetValue(filter Filter) interface{}
+	GetMethod() string
 }
 
 type RouteContext interface {
